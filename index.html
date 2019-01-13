@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <title>Train Scheduler</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- <link rel="stylesheet" type="text/css" media="screen" href="main.css" /> -->
+    <!-- Link to Bootstrap -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS"
+        crossorigin="anonymous">
+    <!-- <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k"
+        crossorigin="anonymous"></script> -->
+
+    <!-- Firebase Ref -->
+    <script src="https://www.gstatic.com/firebasejs/5.7.3/firebase.js"></script>
+
+    <!-- Link to Moment JS -->
+    <script src="https://cdn.jsdelivr.net/momentjs/2.12.0/moment.min.js"></script>
+
+    <!-- Link to JQuery library -->
+    <!-- <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script> -->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+</head>
+
+<body style="background-color:#99ccff">
+
+    <!-- Employee Tracker -->
+    <div class="container">
+
+        <!-- Jumbotron -->
+        <div class="jumbotron" style="background-color:#ffcc99; color:#0066ff">
+            <h1 class="text-center">Anytime is Train Time</h1>
+            <h3 class="text-center">Choo Choo. Chee Chee</h3>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <!-- Add Employee  -->
+                <div class="card mb-4">
+                    <div class="card-header" style="color:white; background-color:#0066ff; font-weight:bold">Add Train</div>
+                    <div class="card-body">
+
+                        <!-- Entry Form -->
+                        <form style="font-weight:bold">
+                            <div class="form-group">
+                                <label for="name">Train Name</label>
+                                <input class="form-control" id="name" placeholder="Atlantic Coast Express"
+                                    type="text">
+                            </div>
+                            <div class="form-group">
+                                <label for="dest">Destination</label>
+                                <input class="form-control" id="dest" placeholder="Nicaragua" type="text">
+                            </div>
+                            <div class="form-group">
+                                <label for="initialTime">First Train Time (HH:mm - Military Time)</label>
+                                <input class="form-control" id="initialTime" placeholder="14:30" type="text">
+                            </div>
+                            <div class="form-group">
+                                <label for="freq">Frequency (min)</label>
+                                <input class="form-control" id="freq" placeholder="30" type="text">
+                            </div>
+                            <button class="btn btn-primary float-right" id="trainInfoBtn">Submit</button>
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+
+            <div class="col-md-12">
+
+                <!-- Train Schedule-->
+                <div class="card mb-4">
+                    <div class="card-header" style="color:white; background-color:#0066ff; font-weight:bold">Current
+                        Train Schedule</div>
+                    <div class="card-body">
+                        <table class="table table-sm table-hover" id='trainTable'>
+                            <thead>
+                                <tr style="background-color:#ffcc99">
+                                    <th scope="col">Train Name</th>
+                                    <th scope="col">Destination</th>
+                                    <th scope="col">Frequency (min)</th>
+                                    <th scope="col">Next Arrival</th>
+                                    <th scope="col">Minutes Away</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <!-- javascript -->
+
+    <script src="assets/scheduler.js"></script>
+</body>
+
+</html>
