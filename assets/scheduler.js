@@ -29,47 +29,51 @@ $(document).ready(function () {
         trainName = $("#name").val().trim();
         destination = $("#dest").val().trim();
         frequency = $("#freq").val().trim();
-        firstTime = $("#firstTime").val();            
+        firstTime = $("#firstTime").val();
 
-        // Creating fields in the database
-        database.ref().push({
-            trainName: trainName,
-            destination: destination,
-            firstTime: firstTime,
-            frequency: frequency
+        if (trainName === "" || destination === "" || frequency === ""  || firstTime === "") {
+            alert("Please fill out all the information and make sure frequency is a number")
+        } else {
+            // Creating fields in the database
+            database.ref().push({
+                trainName: trainName,
+                destination: destination,
+                firstTime: firstTime,
+                frequency: frequency
+            });
+        };
         });
+    
+
+    // Firebase watcher and Initial loader
+
+    database.ref().on("child_added", function (childSnapshot) {
+
+
+        // Getting the information from the database
+        trainName = childSnapshot.val().trainName;
+        destination = childSnapshot.val().destination;
+        firstTime = childSnapshot.val().firstTime;
+        frequency = childSnapshot.val().frequency;
+
+        var firstTimeMoment = moment(firstTime, "hh:mm");
+
+        // Now moment
+
+        var currentTime = moment();
+
+        var minuteArrival = currentTime.diff(firstTimeMoment, "minutes");
+        var minuteLast = minuteArrival % frequency;
+        var awayTrain = frequency - minuteLast;
+
+        // Next Arrival
+        var nextArrival = currentTime.add(awayTrain, "minutes");
+        var arrivalTime = nextArrival.format("HH:mm")
+
+        // Addind values to train schedule table
+        $("#trainTable > tbody").append("<tr><td>" + trainName + "</td><td>" + destination + "</td><td>" +
+            frequency + "</td><td>" + arrivalTime + "</td><td>" + awayTrain + "</td></tr>");
 
     });
-
-        // Firebase watcher and Initial loader
-
-        database.ref().on("child_added", function (childSnapshot) {
-
-
-            // Getting the information from the database
-            trainName = childSnapshot.val().trainName;
-            destination = childSnapshot.val().destination;
-            firstTime = childSnapshot.val().firstTime;
-            frequency = childSnapshot.val().frequency;
-
-            var firstTimeMoment = moment(firstTime, "hh:mm");
-
-            // Now moment
-
-            var currentTime = moment();
-
-            var minuteArrival = currentTime.diff(firstTimeMoment, "minutes");
-            var minuteLast = minuteArrival % frequency;
-            var awayTrain = frequency - minuteLast;
-
-            // Next Arrival
-            var nextArrival = currentTime.add(awayTrain, "minutes");
-            var arrivalTime = nextArrival.format("HH:mm")
-
-            // Addind values to train schedule table
-            $("#trainTable > tbody").append("<tr><td>" + trainName + "</td><td>" + destination + "</td><td>" +
-                frequency + "</td><td>" + arrivalTime + "</td><td>" + awayTrain + "</td></tr>");
-
-        });
 
 });
